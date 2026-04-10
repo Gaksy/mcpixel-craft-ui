@@ -1,0 +1,14 @@
+:root {
+  --mc-large-width: 258px;
+  --mc-large-height: 48px;
+
+  --mc-medium-width: 129px;
+  --mc-medium-height: 32px;
+
+  --mc-small-width: 43px;
+  --mc-small-height: 24px;
+
+  --mc-small-font-size: 11px;
+  --mc-medium-font-size: 15px;
+  --mc-large-font-size: 17px;
+}

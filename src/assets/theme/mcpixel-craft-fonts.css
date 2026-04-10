@@ -1,0 +1,297 @@
+/* ==========================================================================
+   Fusion Pixel Font 缝合像素字体
+   Copyright (c) 2022, TakWolf (https://takwolf.com)
+   Licensed under SIL Open Font License v1.1
+   ========================================================================== */
+
+/* 简体中文 - 8px */
+@font-face {
+  font-family: "FusionPixelCN8";
+  src: url("./fonts/fusion-pixel-8px-monospaced-zh_hans.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+4E00-9FFF; /* 基本汉字范围 */
+}
+
+@font-face {
+  font-family: "FusionPixelCN8 Prop";
+  src: url("./fonts/fusion-pixel-8px-proportional-zh_hans.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+4E00-9FFF;
+}
+
+/* 简体中文 - 10px */
+@font-face {
+  font-family: "FusionPixelCN10";
+  src: url("./fonts/fusion-pixel-10px-monospaced-zh_hans.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelCN10 Prop";
+  src: url("./fonts/fusion-pixel-10px-proportional-zh_hans.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 简体中文 - 12px */
+@font-face {
+  font-family: "FusionPixelCN12";
+  src: url("./fonts/fusion-pixel-12px-monospaced-zh_hans.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelCN12 Prop";
+  src: url("./fonts/fusion-pixel-12px-proportional-zh_hans.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 繁体中文 - 8px */
+@font-face {
+  font-family: "FusionPixelTW8";
+  src: url("./fonts/fusion-pixel-8px-monospaced-zh_hant.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelTW8 Prop";
+  src: url("./fonts/fusion-pixel-8px-proportional-zh_hant.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 繁体中文 - 10px */
+@font-face {
+  font-family: "FusionPixelTW10";
+  src: url("./fonts/fusion-pixel-10px-monospaced-zh_hant.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelTW10 Prop";
+  src: url("./fonts/fusion-pixel-10px-proportional-zh_hant.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 繁体中文 - 12px */
+@font-face {
+  font-family: "FusionPixelTW12";
+  src: url("./fonts/fusion-pixel-12px-monospaced-zh_hant.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelTW12 Prop";
+  src: url("./fonts/fusion-pixel-12px-proportional-zh_hant.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 拉丁文 */
+@font-face {
+  font-family: "FusionPixelLatin8";
+  src: url("./fonts/fusion-pixel-8px-monospaced-latin.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelLatin8 Prop";
+  src: url("./fonts/fusion-pixel-8px-proportional-latin.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelLatin10";
+  src: url("./fonts/fusion-pixel-10px-monospaced-latin.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelLatin10 Prop";
+  src: url("./fonts/fusion-pixel-10px-proportional-latin.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelLatin12";
+  src: url("./fonts/fusion-pixel-12px-monospaced-latin.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelLatin12 Prop";
+  src: url("./fonts/fusion-pixel-12px-proportional-latin.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 日文 */
+@font-face {
+  font-family: "FusionPixelJP8";
+  src: url("./fonts/fusion-pixel-8px-monospaced-ja.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelJP8 Prop";
+  src: url("./fonts/fusion-pixel-8px-proportional-ja.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelJP10";
+  src: url("./fonts/fusion-pixel-10px-monospaced-ja.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelJP10 Prop";
+  src: url("./fonts/fusion-pixel-10px-proportional-ja.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelJP12";
+  src: url("./fonts/fusion-pixel-12px-monospaced-ja.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelJP12 Prop";
+  src: url("./fonts/fusion-pixel-12px-proportional-ja.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 韩文 */
+@font-face {
+  font-family: "FusionPixelKR8";
+  src: url("./fonts/fusion-pixel-8px-monospaced-ko.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelKR8 Prop";
+  src: url("./fonts/fusion-pixel-8px-proportional-ko.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelKR10";
+  src: url("./fonts/fusion-pixel-10px-monospaced-ko.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelKR10 Prop";
+  src: url("./fonts/fusion-pixel-10px-proportional-ko.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelKR12";
+  src: url("./fonts/fusion-pixel-12px-monospaced-ko.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FusionPixelKR12 Prop";
+  src: url("./fonts/fusion-pixel-12px-proportional-ko.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* 8px 等宽字体栈 */
+  --font-pixel-8-mono: "FusionPixelCN8", "FusionPixelTW8", "FusionPixelJP8",
+    "FusionPixelKR8", "FusionPixelLatin8", monospace;
+
+  --font-pixel-8-prop: "FusionPixelCN8 Prop", "FusionPixelTW8 Prop",
+    "FusionPixelJP8 Prop", "FusionPixelKR8 Prop", "FusionPixelLatin8 Prop",
+    sans-serif;
+
+  /* 10px 等宽字体栈 */
+  --font-pixel-10-mono: "FusionPixelCN10", "FusionPixelTW10", "FusionPixelJP10",
+    "FusionPixelKR10", "FusionPixelLatin10", monospace;
+
+  --font-pixel-10-prop: "FusionPixelCN10 Prop", "FusionPixelTW10 Prop",
+    "FusionPixelJP10 Prop", "FusionPixelKR10 Prop", "FusionPixelLatin10 Prop",
+    sans-serif;
+
+  /* 12px 等宽字体栈 */
+  --font-pixel-12-mono: "FusionPixelCN12", "FusionPixelTW12", "FusionPixelJP12",
+    "FusionPixelKR12", "FusionPixelLatin12", monospace;
+
+  --font-pixel-12-prop: "FusionPixelCN12 Prop", "FusionPixelTW12 Prop",
+    "FusionPixelJP12 Prop", "FusionPixelKR12 Prop", "FusionPixelLatin12 Prop",
+    sans-serif;
+}
