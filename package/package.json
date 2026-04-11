@@ -12,7 +12,7 @@
       "import": "./dist/mcpixel-craft-ui.mjs",
       "require": "./dist/mcpixel-craft-ui.umd.js"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/index.css"
   },
   "scripts": {
     "build": "vite build",

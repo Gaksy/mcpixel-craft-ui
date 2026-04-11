@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, Ref, ref } from "vue";
-import type {
-  Appearance,
-  Variant,
-  State,
-} from "@/components/mcpixel-craft-ui/CommonStyleEnum";
+import type { Variant, State, Appearance } from "../CommonStyleEnum";
 
 defineOptions({ name: "McPixelInnerTipsInput" });
 

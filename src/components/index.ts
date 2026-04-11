@@ -2,7 +2,7 @@
 import type { App } from "vue";
 import { McPixelButton } from "./McPixelButton";
 import { McPixelInput } from "./McPixelInput";
-import { McPixelInnerTipsInput } from "@/components/mcpixel-craft-ui/McPixelInnerTipsInput";
+import { McPixelInnerTipsInput } from "./McPixelInnerTipsInput";
 
 // 整体插件
 export default {

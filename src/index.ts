@@ -1,10 +1,13 @@
 import './assets/theme'
+import type { App, Component } from "vue";
 import McPixelButton from "./components/McPixelButton/McPixelButton.vue";
 
-const components = [McPixelButton];
+McPixelButton.name = "McPixelButton";
 
-const install = (app: any) => {
-    components.forEach((component) => {
+const components: Component[] = [McPixelButton];
+
+const install = (app: App) => {
+    components.forEach((component: any) => {
         app.component(component.name, component);
     });
 };

@@ -1,0 +1,60 @@
+import type { Variant, Size, State, Appearance } from "../CommonStyleEnum";
+type InputType = "text" | "password" | "email" | "number" | "tel" | "url" | "search" | "date" | "time" | "datetime-local" | "month" | "week" | "color" | "file" | "range" | "checkbox" | "radio" | "hidden";
+interface Props {
+    appearance?: Appearance;
+    block?: boolean;
+    disabled?: boolean;
+    size?: Size;
+    state?: State;
+    type?: InputType;
+    variant?: Variant;
+    readonly?: boolean;
+    placeholder?: string;
+    value?: string | number;
+    name?: string;
+    id?: string;
+    required?: boolean;
+    min?: string | number;
+    max?: string | number;
+    step?: string | number;
+    accept?: string;
+    multiple?: boolean;
+    checked?: boolean;
+    wait?: boolean;
+}
+declare const __VLS_export: import("vue").DefineComponent<Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {} & {
+    blur: (event: FocusEvent) => any;
+    focus: (event: FocusEvent) => any;
+    change: (event: Event) => any;
+    input: (event: Event) => any;
+    "update:value": (value: string | number | boolean) => any;
+}, string, import("vue").PublicProps, Readonly<Props> & Readonly<{
+    onBlur?: ((event: FocusEvent) => any) | undefined;
+    onFocus?: ((event: FocusEvent) => any) | undefined;
+    onChange?: ((event: Event) => any) | undefined;
+    onInput?: ((event: Event) => any) | undefined;
+    "onUpdate:value"?: ((value: string | number | boolean) => any) | undefined;
+}>, {
+    type: InputType;
+    value: string | number;
+    id: string;
+    name: string;
+    block: boolean;
+    readonly: boolean;
+    size: Size;
+    placeholder: string;
+    disabled: boolean;
+    max: string | number;
+    wait: boolean;
+    appearance: Appearance;
+    multiple: boolean;
+    step: string | number;
+    accept: string;
+    checked: boolean;
+    min: string | number;
+    required: boolean;
+    state: State;
+    variant: Variant;
+}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+declare const _default: typeof __VLS_export;
+export default _default;
