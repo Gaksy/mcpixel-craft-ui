@@ -5,7 +5,7 @@ import type { Variant, State, Appearance } from "../CommonStyleEnum";
 defineOptions({ name: "McPixelInnerTipsInput" });
 
 interface Props {
-  label?: string;
+  placeholder?: string;
   modelValue?: string | number;
   disabled?: boolean;
   password?: boolean;
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: "请输入内容",
+  placeholder: "请输入内容",
   modelValue: "",
   disabled: false,
   password: false,
@@ -108,7 +108,7 @@ function setupInputContainerListeners(
         disabled ? 'mc-pixel-inner-tips-input-label--disabled' : '',
       ]"
     >
-      {{ label }}
+      {{ placeholder }}
     </label>
 
     <input
