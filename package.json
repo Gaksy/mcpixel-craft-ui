@@ -17,7 +17,9 @@
   },
 
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "pack": "npm pack",
+    "build:withpack": "npm run build && npm run pack"
   },
 
   "peerDependencies": {
