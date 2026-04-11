@@ -87,7 +87,8 @@ const handleClick = (event: MouseEvent) =>
   color: var(--mc-core-grey-6);
 }
 .mc-pixel-button.mc-pixel-button-appearance-dark {
-  color: var(--mc-core-grey-1);
+  color: var(--mc-core-grey-6);
+
 }
 
 .mc-pixel-button-slot {

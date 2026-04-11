@@ -195,6 +195,7 @@ const isSpecialType = computed(() =>
 
 .mc-pixel-input.mc-pixel-input-appearance-light {
   color: var(--mc-core-grey-6);
+  background: var(--mc-core-grey-1);
 }
 
 .mc-pixel-input.mc-pixel-input-appearance-dark {
@@ -210,7 +211,7 @@ const isSpecialType = computed(() =>
 }
 
 .mc-pixel-input.mc-pixel-input-appearance-dark:read-only {
-  background: var(--mc-core-grey-5);
+  background: var(--mc-core-grey-6);
   cursor: default;
 }
 
@@ -276,7 +277,7 @@ const isSpecialType = computed(() =>
 
 .mc-pixel-input-variant-general:focus {
   border-color: var(--mc-vanilla-grey-6);
-  box-shadow: 0 0 0 2px var(--mc-vanilla-grey-2);
+  box-shadow: 0 0 0 2px var(--mc-vanilla-grey-5);
   outline: none;
 }
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, Ref, ref } from "vue";
-import type { Variant, State, Appearance } from "../CommonStyleEnum";
+import type { State, Appearance } from "../CommonStyleEnum";
 
 defineOptions({ name: "McPixelInnerTipsInput" });
 
@@ -9,7 +9,6 @@ interface Props {
   modelValue?: string | number;
   disabled?: boolean;
   password?: boolean;
-  variant?: Variant;
   state?: State;
   appearance?: Appearance;
   wait?: boolean;
@@ -21,7 +20,6 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   password: false,
   appearance: "light",
-  variant: "primary",
   state: "general",
   wait: false,
 });
@@ -91,7 +89,6 @@ function setupInputContainerListeners(
     ref="container"
     class="mc-pixel-inner-tips-input-container"
     :class="[
-      `mc-pixel-inner-tips-input--variant-${variant}`,
       `mc-pixel-inner-tips-input--appearance-${appearance}`,
       `mc-pixel-inner-tips-input--state-${state}`,
       focusedState ? 'mc-pixel-inner-tips-input--focused' : '',
@@ -170,12 +167,12 @@ function setupInputContainerListeners(
 
 /* ---------------- Appearance ---------------- */
 .mc-pixel-inner-tips-input--appearance-light {
-  background: inherit;
+  background: var(--mc-core-grey-1);
   color: var(--mc-core-grey-5);
 }
 .mc-pixel-inner-tips-input--appearance-dark {
-  background: inherit;
-  color: var(--mc-core-grey-6);
+  background: var(--mc-core-grey-4);
+  color: var(--mc-core-grey-1);
 }
 
 /* ---------------- Disabled ---------------- */
@@ -188,20 +185,6 @@ function setupInputContainerListeners(
   background: var(--mc-core-grey-5);
   color: var(--mc-core-grey-4);
   cursor: not-allowed;
-}
-
-/* ---------------- Variant ---------------- */
-.mc-pixel-inner-tips-input--variant-primary {
-  background: #e5f0ff;
-}
-.mc-pixel-inner-tips-input--variant-secondary {
-  background: #ebffe9;
-}
-.mc-pixel-inner-tips-input--variant-danger {
-  background: #fdebe1;
-}
-.mc-pixel-inner-tips-input--variant-general {
-  background: #f0f0f0; /* 或者你希望的灰色 */
 }
 
 /* ---------------- State ---------------- */
