@@ -3,7 +3,7 @@ import type { App } from "vue";
 import { McPixelButton } from "./McPixelButton";
 import { McPixelInput } from "./McPixelInput";
 import { McPixelInnerTipsInput } from "./McPixelInnerTipsInput";
-
+import { McPixelCard } from "@/components/McPixelCard";
 // 整体插件
 export default {
   install(app: App) {
@@ -11,6 +11,7 @@ export default {
     app.component("McPixelButton", McPixelButton);
     app.component("McPixelInput", McPixelInput);
     app.component("McPixelInnerTipsInput", McPixelInnerTipsInput);
+    app.component("McPixelCard", McPixelCard);
   },
 };
 
