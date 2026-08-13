@@ -1,11 +1,17 @@
-import type { DefineComponent } from "vue";
+import type { App } from "vue";
 
 declare module "vue" {
     export interface GlobalComponents {
         McPixelButton: typeof import("mcpixel-craft-ui")["McPixelButton"];
         McPixelInput: typeof import("mcpixel-craft-ui")["McPixelInput"];
         McPixelInnerTipsInput: typeof import("mcpixel-craft-ui")["McPixelInnerTipsInput"];
+        McPixelCard: typeof import("mcpixel-craft-ui")["McPixelCard"];
     }
 }
 
+declare const _default: {
+    install(app: App, ...options: any[]): any;
+};
+
+export default _default;
 export {};
