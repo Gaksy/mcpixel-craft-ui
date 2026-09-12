@@ -5,12 +5,14 @@ import McPixelButton from "./McPixelButton/McPixelButton.vue";
 import McPixelInput from "./McPixelInput/McPixelInput.vue";
 import McPixelInnerTipsInput from "./McPixelInnerTipsInput/McPixelInnerTipsInput.vue";
 import McPixelCard from "./McPixelCard/McPixelCard.vue";
+import McPixelTable from "./McPixelTable/McPixelTable.vue";
 
 const components: Component[] = [
   McPixelButton,
   McPixelInput,
   McPixelInnerTipsInput,
   McPixelCard,
+  McPixelTable,
 ];
 
 const install = (app: App) => {
@@ -19,6 +21,6 @@ const install = (app: App) => {
   });
 };
 
-export { McPixelButton, McPixelInput, McPixelInnerTipsInput, McPixelCard };
+export { McPixelButton, McPixelInput, McPixelInnerTipsInput, McPixelCard, McPixelTable };
 
 export default { install };
