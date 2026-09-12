@@ -1,6 +1,6 @@
 {
   "name": "mcpixel-craft-ui",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "./dist/mcpixel-craft-ui.umd.js",
   "module": "./dist/mcpixel-craft-ui.es.js",
   "types": "./dist/types/index.d.ts",

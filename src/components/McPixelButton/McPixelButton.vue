@@ -80,8 +80,8 @@ const handleClick = (event: MouseEvent) =>
   justify-content: center;
   vertical-align: middle;
   user-select: none;
-  /* 未指定 size 时，使用内边距保证基本美观，且允许内容撑开 */
-  padding: 0 12px;
+  /* 未指定 size 时，使用内边距保证基本美观（有 size 的会把 padding 归零按固定高度） */
+  padding: 6px 12px;
 }
 .mc-pixel-button.mc-pixel-button-appearance-light {
   color: var(--mc-core-grey-6);
@@ -98,6 +98,12 @@ const handleClick = (event: MouseEvent) =>
   gap: 4px;
   /* 文案与按钮左右边缘至少留 5px，长文案也不会贴着描边 */
   padding: 0 5px;
+}
+
+/* block：独占一行（之前只有类名没有规则，只有父容器是 flex 拉伸时才像通栏） */
+.mc-pixel-button.mc-pixel-button-block {
+  display: flex;
+  width: 100%;
 }
 
 /* SIZE SMALL - 只有指定 size 时才应用固定宽高 */
