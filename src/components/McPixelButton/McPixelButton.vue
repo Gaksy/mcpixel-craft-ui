@@ -96,6 +96,8 @@ const handleClick = (event: MouseEvent) =>
   align-items: center;
   justify-content: center;
   gap: 4px;
+  /* 文案与按钮左右边缘至少留 5px，长文案也不会贴着描边 */
+  padding: 0 5px;
 }
 
 /* SIZE SMALL - 只有指定 size 时才应用固定宽高 */
