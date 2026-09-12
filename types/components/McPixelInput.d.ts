@@ -27,7 +27,10 @@ export interface McPixelInputProps {
     disabled?: boolean;
     size?: Size;
     state?: State;
-    type?: InputType;
+    /** 传 "textarea" 会渲染成多行文本框 */
+    type?: InputType | "textarea";
+    /** type=textarea 时的行数（默认 4） */
+    rows?: number;
     variant?: Variant;
     readonly?: boolean;
     placeholder?: string;

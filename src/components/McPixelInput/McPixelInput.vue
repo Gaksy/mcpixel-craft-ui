@@ -24,7 +24,9 @@ type InputType =
   | "range"
   | "checkbox"
   | "radio"
-  | "hidden";
+  | "hidden"
+  /** 多行文本：渲染成 <textarea>（行数用 rows 控制） */
+  | "textarea";
 
 interface Props {
   appearance?: Appearance;
@@ -46,6 +48,8 @@ interface Props {
   accept?: string; // for file input
   multiple?: boolean; // for file input
   checked?: boolean; // for checkbox/radio
+  /** type=textarea 时的行数（默认 4） */
+  rows?: number;
   wait?: boolean;
 }
 
@@ -115,10 +119,40 @@ const handleBlur = (event: FocusEvent) => {
 const isSpecialType = computed(() =>
   ["checkbox", "radio", "color", "file", "range", "hidden"].includes(props.type)
 );
+
+const isTextarea = computed(() => props.type === "textarea");
 </script>
 
 <template>
+  <textarea
+    v-if="isTextarea"
+    :id="id"
+    :name="name"
+    :value="modelValue"
+    :placeholder="placeholder"
+    :disabled="isDisabled"
+    :readonly="isReadonly"
+    :required="required"
+    :rows="rows ?? 4"
+    :class="[
+      'mc-pixel-input',
+      'mc-pixel-input-textarea',
+      `mc-pixel-input-size-${size}`,
+      `mc-pixel-input-variant-${variant}`,
+      `mc-pixel-input-state-${state}`,
+      `mc-pixel-input-appearance-${appearance}`,
+      {
+        'mc-pixel-input-block': isBlock,
+        'mc-pixel-input-waiting': isWaiting,
+      },
+    ]"
+    @input="handleInput"
+    @change="handleChange"
+    @focus="handleFocus"
+    @blur="handleBlur"
+  />
   <input
+    v-else
     :id="id"
     :name="name"
     :type="type"
@@ -171,6 +205,16 @@ const isSpecialType = computed(() =>
 
 .mc-pixel-input:not(.mc-pixel-input-special) {
   padding-left: 8px;
+}
+
+/* 多行文本：高度自适应（resize 只允许纵向），不走单行输入框的固定高度 */
+.mc-pixel-input-textarea {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  line-height: 1.8;
+  resize: vertical;
+  min-height: 84px;
 }
 
 .mc-pixel-input.mc-pixel-input-special {
