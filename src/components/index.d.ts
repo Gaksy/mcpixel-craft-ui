@@ -5,6 +5,7 @@ import { McPixelInnerTipsInput } from "./McPixelInnerTipsInput";
 import { McPixelCard } from "./McPixelCard";
 import { McPixelTable } from "./McPixelTable";
 import { McPixelCheckbox } from "./McPixelCheckbox";
+import { McPixelPagination } from "./McPixelPagination";
 
 declare const _default: {
     install(app: App): void;
@@ -18,4 +19,5 @@ export {
     McPixelCard,
     McPixelTable,
     McPixelCheckbox,
+    McPixelPagination,
 };

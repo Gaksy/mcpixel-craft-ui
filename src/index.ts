@@ -6,6 +6,7 @@ import McPixelInnerTipsInput from "./components/McPixelInnerTipsInput/McPixelInn
 import McPixelCard from "./components/McPixelCard/McPixelCard.vue";
 import McPixelTable from "./components/McPixelTable/McPixelTable.vue";
 import McPixelCheckbox from "./components/McPixelCheckbox/McPixelCheckbox.vue";
+import McPixelPagination from "./components/McPixelPagination/McPixelPagination.vue";
 
 const components: Component[] = [
     McPixelButton,
@@ -14,6 +15,7 @@ const components: Component[] = [
     McPixelCard,
     McPixelTable,
     McPixelCheckbox,
+    McPixelPagination,
 ];
 
 const install = (app: App) => {
@@ -29,6 +31,7 @@ export {
     McPixelCard,
     McPixelTable,
     McPixelCheckbox,
+    McPixelPagination,
 };
 
 export default {
