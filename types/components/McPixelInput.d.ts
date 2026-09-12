@@ -31,7 +31,7 @@ export interface McPixelInputProps {
     variant?: Variant;
     readonly?: boolean;
     placeholder?: string;
-    value?: string | number;
+    modelValue?: string | number;
     name?: string;
     id?: string;
     required?: boolean;
@@ -45,7 +45,7 @@ export interface McPixelInputProps {
 }
 
 export interface McPixelInputEmits {
-    (e: "update:value", value: string | number | boolean): void;
+    (e: "update:modelValue", value: string | number | boolean): void;
     (e: "change", event: Event): void;
     (e: "focus", event: FocusEvent): void;
     (e: "blur", event: FocusEvent): void;

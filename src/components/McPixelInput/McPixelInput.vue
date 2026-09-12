@@ -36,7 +36,7 @@ interface Props {
   variant?: Variant;
   readonly?: boolean;
   placeholder?: string;
-  value?: string | number;
+  modelValue?: string | number;
   name?: string;
   id?: string;
   required?: boolean;
@@ -59,7 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
   variant: "secondary",
   readonly: false,
   placeholder: "",
-  value: "",
+  modelValue: "",
   name: "",
   id: "",
   required: false,
@@ -78,7 +78,7 @@ const isReadonly = computed(() => props.readonly);
 const isWaiting = computed(() => props.wait);
 
 const emitUpdate = defineEmits<{
-  (e: "update:value", value: string | number | boolean): void;
+  (e: "update:modelValue", value: string | number | boolean): void;
   (e: "change", event: Event): void;
   (e: "focus", event: FocusEvent): void;
   (e: "blur", event: FocusEvent): void;
@@ -89,11 +89,11 @@ const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
 
   if (props.type === "checkbox" || props.type === "radio") {
-    emitUpdate("update:value", target.checked);
+    emitUpdate("update:modelValue", target.checked);
   } else if (props.type === "number" || props.type === "range") {
-    emitUpdate("update:value", target.valueAsNumber || target.value);
+    emitUpdate("update:modelValue", target.valueAsNumber || target.value);
   } else {
-    emitUpdate("update:value", target.value);
+    emitUpdate("update:modelValue", target.value);
   }
 
   emitUpdate("input", event);
@@ -122,7 +122,7 @@ const isSpecialType = computed(() =>
     :id="id"
     :name="name"
     :type="type"
-    :value="value"
+    :value="modelValue"
     :checked="checked"
     :placeholder="placeholder"
     :disabled="isDisabled"

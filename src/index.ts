@@ -5,11 +5,6 @@ import McPixelInput from "./components/McPixelInput/McPixelInput.vue";
 import McPixelInnerTipsInput from "./components/McPixelInnerTipsInput/McPixelInnerTipsInput.vue";
 import McPixelCard from "./components/McPixelCard/McPixelCard.vue";
 
-McPixelButton.name = "McPixelButton";
-McPixelInput.name = "McPixelInput";
-McPixelInnerTipsInput.name = "McPixelInnerTipsInput";
-McPixelCard.name = "McPixelCard";
-
 const components: Component[] = [McPixelButton, McPixelInput, McPixelInnerTipsInput, McPixelCard];
 
 const install = (app: App) => {

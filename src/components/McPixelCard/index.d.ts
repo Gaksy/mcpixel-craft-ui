@@ -1,5 +1,5 @@
-import McPixelButton from "./McPixelButton.vue";
-export { McPixelButton };
+import McPixelCard from "./McPixelCard.vue";
+export { McPixelCard };
 declare const _default: {
     install(app: any): void;
 };

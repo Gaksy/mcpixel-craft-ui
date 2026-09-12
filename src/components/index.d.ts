@@ -2,8 +2,11 @@ import type { App } from "vue";
 import { McPixelButton } from "./McPixelButton";
 import { McPixelInput } from "./McPixelInput";
 import { McPixelInnerTipsInput } from "./McPixelInnerTipsInput";
+import { McPixelCard } from "./McPixelCard";
+
 declare const _default: {
     install(app: App): void;
 };
+
 export default _default;
-export { McPixelButton, McPixelInput, McPixelInnerTipsInput };
+export { McPixelButton, McPixelInput, McPixelInnerTipsInput, McPixelCard };

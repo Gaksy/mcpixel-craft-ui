@@ -8,7 +8,7 @@ export { McPixelButton, McPixelInput, McPixelInnerTipsInput, McPixelCard };
 export type { McPixelButtonProps } from "./components/McPixelButton";
 export type { McPixelInputProps } from "./components/McPixelInput";
 export type { McPixelInnerTipsInputProps } from "./components/McPixelInnerTipsInput";
-export type { McPixelCard } from "./components/McPixelCard";
+export type { McPixelCardProps } from "./components/McPixelCard";
 
 declare const _default: {
     install(app: any, ...options: any[]): any;
