@@ -5,6 +5,7 @@ declare module 'vue' {
         McPixelInnerTipsInput: typeof import("mcpixel-craft-ui")["McPixelInnerTipsInput"];
         McPixelCard: typeof import("mcpixel-craft-ui")["McPixelCard"];
         McPixelTable: typeof import("mcpixel-craft-ui")["McPixelTable"];
+        McPixelCheckbox: typeof import("mcpixel-craft-ui")["McPixelCheckbox"];
     }
 }
 
