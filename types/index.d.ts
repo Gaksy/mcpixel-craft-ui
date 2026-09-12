@@ -4,6 +4,7 @@ import McPixelInnerTipsInput from "./components/McPixelInnerTipsInput";
 import McPixelCard from "./components/McPixelCard";
 import McPixelTable from "./components/McPixelTable";
 import McPixelCheckbox from "./components/McPixelCheckbox";
+import McPixelSwitch from "./components/McPixelSwitch";
 import McPixelPagination from "./components/McPixelPagination";
 
 export {
@@ -13,6 +14,7 @@ export {
     McPixelCard,
     McPixelTable,
     McPixelCheckbox,
+    McPixelSwitch,
     McPixelPagination,
 };
 
@@ -22,6 +24,7 @@ export type { McPixelInnerTipsInputProps } from "./components/McPixelInnerTipsIn
 export type { McPixelCardProps } from "./components/McPixelCard";
 export type { McPixelTableProps, TableColumn } from "./components/McPixelTable";
 export type { McPixelCheckboxProps } from "./components/McPixelCheckbox";
+export type { McPixelSwitchProps } from "./components/McPixelSwitch";
 export type { McPixelPaginationProps } from "./components/McPixelPagination";
 
 declare const _default: {
@@ -38,6 +41,7 @@ declare module "vue" {
         McPixelCard: typeof import("mcpixel-craft-ui")["McPixelCard"];
         McPixelTable: typeof import("mcpixel-craft-ui")["McPixelTable"];
         McPixelCheckbox: typeof import("mcpixel-craft-ui")["McPixelCheckbox"];
+        McPixelSwitch: typeof import("mcpixel-craft-ui")["McPixelSwitch"];
         McPixelPagination: typeof import("mcpixel-craft-ui")["McPixelPagination"];
     }
 }

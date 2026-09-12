@@ -38,15 +38,17 @@ const className = computed(() => [
 }
 
 .mc-pixel-card-appearance-light {
-  color: var(--mc-core-grey-6);
-  background-color: var(--mc-core-grey-1);
-  border-color: var(--mc-core-grey-6);
+  /* 优先用宿主主题变量（后台 --bk-*）：卡片应该是「比页面底色亮一档的面」，
+     直接写死调色板会在深色后台里变成一块灰板，看着像 disabled */
+  color: var(--bk-text-1, var(--mc-core-grey-6));
+  background-color: var(--bk-bg-sidebar, var(--mc-core-grey-1));
+  border-color: var(--bk-border, var(--mc-core-grey-6));
 }
 
 .mc-pixel-card-appearance-dark {
-  color: var(--mc-core-grey-1);
-  background-color: var(--mc-core-grey-5);
-  border-color: var(--mc-core-grey-4);
+  color: var(--bk-text-1, var(--mc-core-grey-1));
+  background-color: var(--bk-bg-sidebar, var(--mc-core-grey-5));
+  border-color: var(--bk-border, var(--mc-core-grey-4));
 }
 
 .mc-pixel-card-state-success {

@@ -8,6 +8,7 @@ declare module "vue" {
         McPixelCard: typeof import("mcpixel-craft-ui")["McPixelCard"];
         McPixelTable: typeof import("mcpixel-craft-ui")["McPixelTable"];
         McPixelCheckbox: typeof import("mcpixel-craft-ui")["McPixelCheckbox"];
+        McPixelSwitch: typeof import("mcpixel-craft-ui")["McPixelSwitch"];
         McPixelPagination: typeof import("mcpixel-craft-ui")["McPixelPagination"];
     }
 }
