@@ -1,6 +1,16 @@
 {
   "name": "mcpixel-craft-ui",
   "version": "0.7.0",
+  "description": "像素风（Minecraft 风格）Vue 3 组件库：按钮 / 输入框 / 多选框 / 开关 / 卡片 / 表格 / 分页",
+  "keywords": ["vue3", "vue", "component-library", "pixel", "minecraft", "ui"],
+  "homepage": "https://www.inception.work/mcpixel-ui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gaksy/mcpixel-craft-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gaksy/mcpixel-craft-ui/issues"
+  },
   "main": "./dist/mcpixel-craft-ui.umd.js",
   "module": "./dist/mcpixel-craft-ui.es.js",
   "types": "./dist/types/index.d.ts",
@@ -19,7 +29,8 @@
   "scripts": {
     "build": "vite build",
     "pack": "npm pack",
-    "build:withpack": "npm run build && npm run pack"
+    "build:withpack": "npm run build && npm run pack",
+    "prepare": "npm run build"
   },
 
   "peerDependencies": {
