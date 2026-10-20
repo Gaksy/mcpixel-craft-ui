@@ -6,6 +6,7 @@ import McPixelTable from "./components/McPixelTable";
 import McPixelCheckbox from "./components/McPixelCheckbox";
 import McPixelSwitch from "./components/McPixelSwitch";
 import McPixelPagination from "./components/McPixelPagination";
+import McPixelToast from "./components/McPixelToast";
 
 export {
     McPixelButton,
@@ -16,6 +17,7 @@ export {
     McPixelCheckbox,
     McPixelSwitch,
     McPixelPagination,
+    McPixelToast,
 };
 
 export type { McPixelButtonProps } from "./components/McPixelButton";
@@ -26,6 +28,10 @@ export type { McPixelTableProps, TableColumn } from "./components/McPixelTable";
 export type { McPixelCheckboxProps } from "./components/McPixelCheckbox";
 export type { McPixelSwitchProps } from "./components/McPixelSwitch";
 export type { McPixelPaginationProps } from "./components/McPixelPagination";
+export type { McPixelToastProps, McPixelToastApi, ToastKind } from "./components/McPixelToast";
+
+/** 命令式轻提示（宿主自动挂载，不阻塞界面） */
+export { useMcPixelToast } from "./components/McPixelToast";
 
 declare const _default: {
     install(app: any, ...options: any[]): any;
@@ -43,5 +49,6 @@ declare module "vue" {
         McPixelCheckbox: typeof import("mcpixel-craft-ui")["McPixelCheckbox"];
         McPixelSwitch: typeof import("mcpixel-craft-ui")["McPixelSwitch"];
         McPixelPagination: typeof import("mcpixel-craft-ui")["McPixelPagination"];
+        McPixelToast: typeof import("mcpixel-craft-ui")["McPixelToast"];
     }
 }

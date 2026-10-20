@@ -30,6 +30,13 @@ interface Props {
   offText?: string;
   /** 打开时滑块上的符号 */
   onText?: string;
+  /**
+   * 保存中：开关进入**闪烁**状态且不可再点。
+   *
+   * 用在"点一下立刻提交"的设置项上（如后台的维护开关）：点击后马上发请求，
+   * 请求在飞的时候开关闪烁提示"正在处理"，回来后再落定。
+   */
+  wait?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -40,6 +47,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: "medium",
   offText: "–",
   onText: "O",
+  wait: false,
 });
 
 const emit = defineEmits<{
@@ -50,8 +58,11 @@ const emit = defineEmits<{
 const isOn = computed(() => !!props.modelValue);
 /** small 之外都按 medium 渲染，避免传了 large 之类的值出不来样式 */
 const sizeClass = computed(() => (props.size === "small" ? "is-small" : "is-medium"));
+/** 保存中也不许再点（避免连点打出一串请求） */
+const isDisabled = computed(() => props.disabled || props.wait);
 
 function onChange(event: Event) {
+  if (isDisabled.value) return;
   const checked = (event.target as HTMLInputElement).checked;
   emit("update:modelValue", checked);
   emit("change", checked);
@@ -66,7 +77,8 @@ function onChange(event: Event) {
       sizeClass,
       {
         'is-on': isOn,
-        'is-disabled': disabled,
+        'is-disabled': isDisabled,
+        'is-wait': wait,
       },
     ]"
   >
@@ -75,7 +87,7 @@ function onChange(event: Event) {
       type="checkbox"
       role="switch"
       :checked="isOn"
-      :disabled="disabled"
+      :disabled="isDisabled"
       @change="onChange"
     />
     <span class="mc-pixel-switch-track" aria-hidden="true">
@@ -218,6 +230,37 @@ function onChange(event: Event) {
 .is-disabled:hover .mc-pixel-switch-track,
 .is-disabled:hover .mc-pixel-switch-thumb {
   border-color: var(--sw-border);
+}
+
+/*
+ * 保存中：闪烁（与按钮的 wait 同一套节奏 —— 1 秒一次，光标改 wait）。
+ * 用透明度而不是颜色来回跳：颜色在深浅两套主题下都要稳妥，透明度两套都读得出来。
+ */
+.is-wait {
+  cursor: wait;
+  opacity: 0.65;
+  animation: mc-pixel-switch-flash 1s infinite;
+}
+
+.is-wait:hover .mc-pixel-switch-track,
+.is-wait:hover .mc-pixel-switch-thumb {
+  border-color: var(--sw-border);
+}
+
+@keyframes mc-pixel-switch-flash {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-wait {
+    animation: none;
+  }
 }
 
 .mc-pixel-switch-label {

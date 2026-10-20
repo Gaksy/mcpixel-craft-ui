@@ -13,6 +13,8 @@ export interface McPixelSwitchProps {
     offText?: string;
     /** 打开时滑块上的符号，默认「O」 */
     onText?: string;
+    /** 保存中：开关闪烁且不可再点（点一下立刻提交的设置项用） */
+    wait?: boolean;
 }
 
 declare const McPixelSwitch: DefineComponent<
