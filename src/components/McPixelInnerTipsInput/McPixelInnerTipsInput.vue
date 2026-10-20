@@ -12,6 +12,16 @@ interface Props {
   state?: State;
   appearance?: Appearance;
   wait?: boolean;
+  /**
+   * 透传给内层 <input> 的 autocomplete（如 "username" / "current-password"）。
+   *
+   * 为什么要透传：浏览器靠它区分字段角色才能正确自动填充；
+   * 不给的话属性会落到**根 div** 上，内层 input 是个没有 name 的 text，
+   * 浏览器的密码管理器认不出来，只能"随便填"，连带着把焦点抢来抢去。
+   */
+  autocomplete?: string;
+  /** 透传给内层 <input> 的 name（同理，密码管理器会用到） */
+  name?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -22,6 +32,8 @@ const props = withDefaults(defineProps<Props>(), {
   appearance: "light",
   state: "general",
   wait: false,
+  autocomplete: "",
+  name: "",
 });
 
 const emits = defineEmits(["update:modelValue", "focus", "blur"]);
@@ -31,10 +43,32 @@ const innerInput = ref<HTMLInputElement | null>(null);
 const container = ref<HTMLElement | null>(null);
 const focusedState = ref<boolean>(false);
 
-const containerHandleFocus = () => {
+/** 把焦点从容器转交给内层 input 的定时器（同一时刻只允许有一个） */
+let refocusTimer: number | null = null;
+
+/**
+ * 容器获焦时把焦点交给内层 input。
+ *
+ * 关键修复（2026-10-20）：监听是挂在容器上的**捕获阶段**，内层 input 自己获焦也会进到这里。
+ * 旧实现无条件排一个「100ms 后再聚焦自己」的定时器，还不清旧的 ——
+ * 浏览器自动填充会在 100ms 内依次聚焦两个字段，两边的定时器就互相把焦点抢回去，
+ * 表现是登录页用户名和密码框「互抢焦点」，几十毫秒一次永不收敛。
+ *
+ * 现在：只处理"焦点落在容器本身"的情况（点到了输入框的留白），
+ * 并且在真正聚焦前再确认一次焦点没被别处拿走；旧定时器先清掉。
+ */
+const containerHandleFocus = (event: FocusEvent) => {
   if (props.disabled) return;
   focusedState.value = true;
-  setTimeout(() => innerInput.value?.focus({ preventScroll: true }), 100);
+  if (event && event.target !== container.value) return;
+  if (refocusTimer !== null) window.clearTimeout(refocusTimer);
+  refocusTimer = window.setTimeout(() => {
+    refocusTimer = null;
+    const active = document.activeElement;
+    // 这 100ms 里用户/浏览器已经把焦点放到别处了，就别抢
+    if (active && active !== container.value && active !== document.body) return;
+    innerInput.value?.focus({ preventScroll: true });
+  }, 100);
 };
 const containerHandleBlur = () => {
   if (props.disabled) return;
@@ -61,7 +95,13 @@ onMounted(() => {
     container
   );
 });
-onUnmounted(() => cleanup?.());
+onUnmounted(() => {
+  cleanup?.();
+  if (refocusTimer !== null) {
+    window.clearTimeout(refocusTimer);
+    refocusTimer = null;
+  }
+});
 
 function setupInputContainerListeners(
   onFocus: (event: FocusEvent) => void,
@@ -115,6 +155,8 @@ function setupInputContainerListeners(
       :type="password ? 'password' : 'text'"
       :value="modelValue"
       :disabled="disabled"
+      :autocomplete="autocomplete || undefined"
+      :name="name || undefined"
       @input="innerInputHandleInput"
       @focus="innerInputHandleFocus"
       @blur="innerInputHandleBlur"
