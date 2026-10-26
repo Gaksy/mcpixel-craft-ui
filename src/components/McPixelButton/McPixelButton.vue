@@ -346,12 +346,17 @@ const handleClick = (event: MouseEvent) =>
   border-radius: 0;
 }
 
+/*
+ * 等待态：轻微呼吸，而不是硬闪。
+ * 早先是 1s linear + brightness 0.6（观感"一闪一闪"很硬）；
+ * 现在对比度收到 0.78、时长 1.2s 并加 ease-in-out，变成平滑的明暗起伏。
+ */
 @keyframes mc-pixel-wait-flash {
   0% {
     filter: brightness(1);
   }
   50% {
-    filter: brightness(0.6);
+    filter: brightness(0.78);
   }
   100% {
     filter: brightness(1);
@@ -359,8 +364,15 @@ const handleClick = (event: MouseEvent) =>
 }
 
 .mc-pixel-button.mc-pixel-button-waiting {
-  animation: mc-pixel-wait-flash 1s infinite;
+  animation: mc-pixel-wait-flash 1.2s ease-in-out infinite;
   cursor: wait;
   pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-pixel-button.mc-pixel-button-waiting {
+    animation: none;
+    opacity: 0.7;
+  }
 }
 </style>

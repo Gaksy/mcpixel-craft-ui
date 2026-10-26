@@ -11,6 +11,7 @@ import McPixelPagination from "./components/McPixelPagination/McPixelPagination.
 import McPixelToast from "./components/McPixelToast/McPixelToast.vue";
 import McPixelSearchInput from "./components/McPixelSearchInput/McPixelSearchInput.vue";
 import McPixelStateButton from "./components/McPixelStateButton/McPixelStateButton.vue";
+import McPixelLoadingOverlay from "./components/McPixelLoadingOverlay/McPixelLoadingOverlay.vue";
 
 const components: Component[] = [
     McPixelButton,
@@ -24,6 +25,7 @@ const components: Component[] = [
     McPixelToast,
     McPixelSearchInput,
     McPixelStateButton,
+    McPixelLoadingOverlay,
 ];
 
 const install = (app: App) => {
@@ -44,6 +46,7 @@ export {
     McPixelToast,
     McPixelSearchInput,
     McPixelStateButton,
+    McPixelLoadingOverlay,
 };
 
 // 轻提示：命令式 API（toast.success / error / warning），宿主自动挂载

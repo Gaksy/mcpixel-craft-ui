@@ -9,6 +9,7 @@ import McPixelPagination from "./components/McPixelPagination";
 import McPixelToast from "./components/McPixelToast";
 import McPixelSearchInput from "./components/McPixelSearchInput";
 import McPixelStateButton from "./components/McPixelStateButton";
+import McPixelLoadingOverlay from "./components/McPixelLoadingOverlay";
 
 export {
     McPixelButton,
@@ -22,6 +23,7 @@ export {
     McPixelToast,
     McPixelSearchInput,
     McPixelStateButton,
+    McPixelLoadingOverlay,
 };
 
 export type { McPixelButtonProps } from "./components/McPixelButton";
@@ -34,6 +36,7 @@ export type { McPixelSwitchProps } from "./components/McPixelSwitch";
 export type { McPixelPaginationProps } from "./components/McPixelPagination";
 export type { McPixelSearchInputProps } from "./components/McPixelSearchInput";
 export type { McPixelStateButtonProps, StateTone } from "./components/McPixelStateButton";
+export type { McPixelLoadingOverlayProps } from "./components/McPixelLoadingOverlay";
 export type { McPixelToastProps, McPixelToastApi, ToastKind } from "./components/McPixelToast";
 
 /** 命令式轻提示（宿主自动挂载，不阻塞界面） */
@@ -58,5 +61,6 @@ declare module "vue" {
         McPixelToast: typeof import("mcpixel-craft-ui")["McPixelToast"];
         McPixelSearchInput: typeof import("mcpixel-craft-ui")["McPixelSearchInput"];
         McPixelStateButton: typeof import("mcpixel-craft-ui")["McPixelStateButton"];
+        McPixelLoadingOverlay: typeof import("mcpixel-craft-ui")["McPixelLoadingOverlay"];
     }
 }
