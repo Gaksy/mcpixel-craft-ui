@@ -9,6 +9,7 @@ import McPixelCheckbox from "./components/McPixelCheckbox/McPixelCheckbox.vue";
 import McPixelSwitch from "./components/McPixelSwitch/McPixelSwitch.vue";
 import McPixelPagination from "./components/McPixelPagination/McPixelPagination.vue";
 import McPixelToast from "./components/McPixelToast/McPixelToast.vue";
+import McPixelSearchInput from "./components/McPixelSearchInput/McPixelSearchInput.vue";
 
 const components: Component[] = [
     McPixelButton,
@@ -20,6 +21,7 @@ const components: Component[] = [
     McPixelSwitch,
     McPixelPagination,
     McPixelToast,
+    McPixelSearchInput,
 ];
 
 const install = (app: App) => {
@@ -38,6 +40,7 @@ export {
     McPixelSwitch,
     McPixelPagination,
     McPixelToast,
+    McPixelSearchInput,
 };
 
 // 轻提示：命令式 API（toast.success / error / warning），宿主自动挂载
