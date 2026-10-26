@@ -10,6 +10,7 @@ import McPixelSwitch from "./components/McPixelSwitch/McPixelSwitch.vue";
 import McPixelPagination from "./components/McPixelPagination/McPixelPagination.vue";
 import McPixelToast from "./components/McPixelToast/McPixelToast.vue";
 import McPixelSearchInput from "./components/McPixelSearchInput/McPixelSearchInput.vue";
+import McPixelStateButton from "./components/McPixelStateButton/McPixelStateButton.vue";
 
 const components: Component[] = [
     McPixelButton,
@@ -22,6 +23,7 @@ const components: Component[] = [
     McPixelPagination,
     McPixelToast,
     McPixelSearchInput,
+    McPixelStateButton,
 ];
 
 const install = (app: App) => {
@@ -41,11 +43,13 @@ export {
     McPixelPagination,
     McPixelToast,
     McPixelSearchInput,
+    McPixelStateButton,
 };
 
 // 轻提示：命令式 API（toast.success / error / warning），宿主自动挂载
 export { useMcPixelToast } from "./components/McPixelToast/useMcPixelToast";
 export type { ToastKind } from "./components/McPixelToast/McPixelToast.vue";
+export type { StateTone } from "./components/McPixelStateButton/McPixelStateButton.vue";
 
 export default {
     install,
