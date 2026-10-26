@@ -147,14 +147,15 @@ function onKeydown(event: KeyboardEvent) {
   --sb-glow: 82, 165, 53;
 
   /*
-   * 键程（站长口径：陷进去更多、松手回弹、再按突出）
-   *   --sb-depth      弹出的"键高"：地面投影就是这个厚度，数字越大越像凸出来一块
-   *   --sb-sink       锁定按下后停在的位置（比压到底浅 2px，那 2px 就是"回弹"）
-   *   --sb-sink-deep  指头压到底的位置
+   * 键程（站长口径：按下要有"陷进去"的手感，但**静止态必须和旁边控件齐平**）
+   *   --sb-sink-deep  按住时下沉的距离（瞬时的，松手就弹回）
+   *   --sb-sink       锁定"已启用"后的位移 —— **0**：一个像素都不动，行内绝对整齐
+   *
+   * "弹出 / 按下"的差别只靠**倒角方向 + 外围光晕**表达，不再用地面投影：
+   * 底下那一大块投影会把按钮托得比别人高一块，整行看着不齐（站长口径）。
    */
-  --sb-depth: 5px;
-  --sb-sink: 4px;
-  --sb-sink-deep: 6px;
+  --sb-sink-deep: 5px;
+  --sb-sink: 0px;
 
   display: inline-flex;
   align-items: center;
@@ -173,11 +174,10 @@ function onKeydown(event: KeyboardEvent) {
   user-select: none;
   -webkit-appearance: none;
   appearance: none;
-  /* 弹出态：顶边高光 + 底边硬投影 + 地面投影（= 键高） */
+  /* 弹出态：只靠倒角（顶边高光 + 底边暗边）做出"凸起"，不再有底部投影 */
   box-shadow:
-    inset 2px 2px 0 rgba(255, 255, 255, 0.18),
-    inset -2px -2px 0 rgba(0, 0, 0, 0.45),
-    0 var(--sb-depth) 0 rgba(0, 0, 0, 0.55);
+    inset 2px 2px 0 rgba(255, 255, 255, 0.22),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.55);
   transform: translateY(0);
   /*
    * 松手/切换走"回弹曲线"（cubic-bezier 的 y > 1 = 冲过头再回来），
@@ -250,36 +250,34 @@ function onKeydown(event: KeyboardEvent) {
 .mc-pixel-state-btn:hover:not(.is-disabled):not(.is-on) {
   color: var(--mc-core-green-3, #6cc349);
   box-shadow:
-    inset 2px 2px 0 rgba(255, 255, 255, 0.22),
-    inset -2px -2px 0 rgba(0, 0, 0, 0.45),
-    0 var(--sb-depth) 0 rgba(0, 0, 0, 0.55),
-    0 0 0 2px rgba(255, 255, 255, 0.06);
+    inset 2px 2px 0 rgba(255, 255, 255, 0.26),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.55),
+    0 0 0 2px rgba(255, 255, 255, 0.08);
 }
 
 /*
- * 手指/鼠标按住：一口气压到底（-6px），地面投影收掉 —— 这一下要"陷进去"，所以用 70ms 直落，
- * 松手时再把 .is-pressing 摘掉，交回基础曲线的 0.22s 回弹。
+ * 手指/鼠标按住：下沉 --sb-sink-deep（5px）、倒角加深 —— 这一下要"陷进去"，
+ * 所以用 70ms 直落；松手把 .is-pressing 摘掉，交回基础曲线的回弹（回到原位）。
  */
 .is-pressing:not(.is-disabled) {
   transform: translateY(var(--sb-sink-deep));
   box-shadow:
-    inset 3px 3px 0 rgba(0, 0, 0, 0.55),
-    inset -2px -2px 0 rgba(255, 255, 255, 0.08),
-    0 0 0 rgba(0, 0, 0, 0);
+    inset 3px 3px 0 rgba(0, 0, 0, 0.6),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.08);
   transition:
     transform 0.07s ease-out,
     box-shadow 0.07s ease-out;
 }
 
-/* ---------- 已启用：停在 -4px（比压到底浅 2px，那 2px 就是松手时的回弹）+ 外围发光 ---------- */
+/* ---------- 已启用：位置不变（0px，行内齐平）+ 倒角翻转 + 外围发光 ---------- */
 .is-on {
   color: var(--sb-text-on);
   background: linear-gradient(180deg, var(--sb-on-top), var(--sb-on-bottom));
   border-color: var(--sb-border);
   transform: translateY(var(--sb-sink));
   box-shadow:
-    inset 3px 3px 0 rgba(0, 0, 0, 0.42),
-    inset -2px -2px 0 rgba(255, 255, 255, 0.16);
+    inset 3px 3px 0 rgba(0, 0, 0, 0.55),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.12);
 }
 
 /*
@@ -289,14 +287,14 @@ function onKeydown(event: KeyboardEvent) {
  */
 .is-on.has-glow {
   box-shadow:
-    inset 3px 3px 0 rgba(0, 0, 0, 0.42),
-    inset -2px -2px 0 rgba(255, 255, 255, 0.16),
+    inset 3px 3px 0 rgba(0, 0, 0, 0.55),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.12),
     inset 0 0 9px rgba(var(--sb-glow), 0.4),
     0 0 7px 0 rgba(var(--sb-glow), 0.3),
     0 0 16px 2px rgba(var(--sb-glow), 0.12);
 }
 
-/* 已启用时再按一下：继续压到 -6px（数据上"更深"，松手后弹回 0 = 突出出来） */
+/* 已启用时再按一下：同样压深 5px，松手弹回原位 */
 .is-on.is-pressing:not(.is-disabled) {
   transform: translateY(var(--sb-sink-deep));
   filter: brightness(0.92);
