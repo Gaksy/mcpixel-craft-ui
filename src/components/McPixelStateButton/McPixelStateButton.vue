@@ -146,6 +146,16 @@ function onKeydown(event: KeyboardEvent) {
   --sb-on-bottom: var(--mc-core-green-5, #3c8527);
   --sb-glow: 82, 165, 53;
 
+  /*
+   * 键程（站长口径：陷进去更多、松手回弹、再按突出）
+   *   --sb-depth      弹出的"键高"：地面投影就是这个厚度，数字越大越像凸出来一块
+   *   --sb-sink       锁定按下后停在的位置（比压到底浅 2px，那 2px 就是"回弹"）
+   *   --sb-sink-deep  指头压到底的位置
+   */
+  --sb-depth: 5px;
+  --sb-sink: 4px;
+  --sb-sink-deep: 6px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -163,15 +173,19 @@ function onKeydown(event: KeyboardEvent) {
   user-select: none;
   -webkit-appearance: none;
   appearance: none;
-  /* 弹出态：顶边高光 + 底边硬投影 + 地面投影（3px，正好是按下时下沉的距离） */
+  /* 弹出态：顶边高光 + 底边硬投影 + 地面投影（= 键高） */
   box-shadow:
-    inset 2px 2px 0 rgba(255, 255, 255, 0.16),
+    inset 2px 2px 0 rgba(255, 255, 255, 0.18),
     inset -2px -2px 0 rgba(0, 0, 0, 0.45),
-    0 3px 0 rgba(0, 0, 0, 0.55);
+    0 var(--sb-depth) 0 rgba(0, 0, 0, 0.55);
   transform: translateY(0);
+  /*
+   * 松手/切换走"回弹曲线"（cubic-bezier 的 y > 1 = 冲过头再回来），
+   * 压下去则由 .is-pressing 换成 70ms 直落，一快一弹，手感才像真的按键。
+   */
   transition:
-    transform 0.08s ease-out,
-    box-shadow 0.12s ease-out,
+    transform 0.24s cubic-bezier(0.34, 1.7, 0.64, 1),
+    box-shadow 0.16s ease-out,
     background-color 0.12s ease-out,
     color 0.12s ease-out;
 }
@@ -236,45 +250,55 @@ function onKeydown(event: KeyboardEvent) {
 .mc-pixel-state-btn:hover:not(.is-disabled):not(.is-on) {
   color: var(--mc-core-green-3, #6cc349);
   box-shadow:
-    inset 2px 2px 0 rgba(255, 255, 255, 0.2),
+    inset 2px 2px 0 rgba(255, 255, 255, 0.22),
     inset -2px -2px 0 rgba(0, 0, 0, 0.45),
-    0 3px 0 rgba(0, 0, 0, 0.55),
+    0 var(--sb-depth) 0 rgba(0, 0, 0, 0.55),
     0 0 0 2px rgba(255, 255, 255, 0.06);
 }
 
-/* 手指/鼠标按住：先压下去（松手才切换状态） */
+/*
+ * 手指/鼠标按住：一口气压到底（-6px），地面投影收掉 —— 这一下要"陷进去"，所以用 70ms 直落，
+ * 松手时再把 .is-pressing 摘掉，交回基础曲线的 0.22s 回弹。
+ */
 .is-pressing:not(.is-disabled) {
-  transform: translateY(3px);
+  transform: translateY(var(--sb-sink-deep));
   box-shadow:
-    inset 2px 2px 0 rgba(0, 0, 0, 0.5),
-    inset -2px -2px 0 rgba(255, 255, 255, 0.1),
+    inset 3px 3px 0 rgba(0, 0, 0, 0.55),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.08),
     0 0 0 rgba(0, 0, 0, 0);
+  transition:
+    transform 0.07s ease-out,
+    box-shadow 0.07s ease-out;
 }
 
-/* ---------- 已启用：按下 + 外围发光 ---------- */
+/* ---------- 已启用：停在 -4px（比压到底浅 2px，那 2px 就是松手时的回弹）+ 外围发光 ---------- */
 .is-on {
   color: var(--sb-text-on);
   background: linear-gradient(180deg, var(--sb-on-top), var(--sb-on-bottom));
   border-color: var(--sb-border);
-  /* 下沉 3px（正好吃掉弹出态的 3px 地面投影）+ 四边内凹 */
-  transform: translateY(3px);
+  transform: translateY(var(--sb-sink));
   box-shadow:
-    inset 2px 2px 0 rgba(0, 0, 0, 0.4),
-    inset -2px -2px 0 rgba(255, 255, 255, 0.18);
+    inset 3px 3px 0 rgba(0, 0, 0, 0.42),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.16);
 }
 
-/* 光晕单独一层：只在启用且开启 glow 时出现 */
+/*
+ * 光晕：比第一版压暗、收紧。
+ * 除了外圈，还加了一层 inset 光晕 —— 让"亮"长在按钮面上，
+ * 只有外圈发光的话按钮看着像悬在半空（站长口径）。
+ */
 .is-on.has-glow {
   box-shadow:
-    inset 2px 2px 0 rgba(0, 0, 0, 0.4),
-    inset -2px -2px 0 rgba(255, 255, 255, 0.18),
-    0 0 12px 2px rgba(var(--sb-glow), 0.6),
-    0 0 26px 6px rgba(var(--sb-glow), 0.26);
+    inset 3px 3px 0 rgba(0, 0, 0, 0.42),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 9px rgba(var(--sb-glow), 0.4),
+    0 0 7px 0 rgba(var(--sb-glow), 0.3),
+    0 0 16px 2px rgba(var(--sb-glow), 0.12);
 }
 
-/* 已启用时再按一下：轻微继续下压，给"能关掉"的反馈 */
+/* 已启用时再按一下：继续压到 -6px（数据上"更深"，松手后弹回 0 = 突出出来） */
 .is-on.is-pressing:not(.is-disabled) {
-  transform: translateY(4px);
+  transform: translateY(var(--sb-sink-deep));
   filter: brightness(0.92);
 }
 
