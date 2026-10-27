@@ -100,33 +100,48 @@ function updatePanelPosition() {
   const trigger = triggerRef.value;
   if (!trigger) return;
   const rect = trigger.getBoundingClientRect();
-  // 粗略估高：选项行高约 29px + 边框，用来判断放下面还是翻到上面
-  const wanted = Math.min(
-    normalized.value.length * 29 + 8,
-    props.maxPanelHeight > 0 ? props.maxPanelHeight : Number.MAX_SAFE_INTEGER,
-  );
-  const spaceBelow = window.innerHeight - rect.bottom - 8;
-  const spaceAbove = rect.top - 8;
-  const openUp = wanted > spaceBelow && spaceAbove > spaceBelow;
 
+  /*
+   * 用「文档坐标 + position:absolute」而不是 fixed：
+   *   - fixed 的面板在触发器靠近视口底部时会被视口边缘截掉（看起来"只有一行"），
+   *     而且页面一滚就跟着跑 —— 之前还必须监听 scroll 去关面板，体验很差；
+   *   - absolute 挂在 body 上，坐标带滚动偏移，面板天然跟着页面滚动。
+   */
   const style: Record<string, string> = {
-    position: "fixed",
-    left: `${rect.left}px`,
-    width: `${rect.width}px`,
+    position: "absolute",
+    left: `${Math.round(rect.left + window.scrollX)}px`,
+    top: `${Math.round(rect.bottom + window.scrollY + 2)}px`,
+    width: `${Math.round(rect.width)}px`,
+    height: "auto",
     zIndex: "9999",
     minWidth: "120px",
   };
-  // 只有显式传了 maxPanelHeight 才限制高度；否则让面板自然展开
-  // （之前按可视空间自动截断，选项稍多就会变成"只能看到一条、要滚动"）
   if (props.maxPanelHeight > 0) {
     style.maxHeight = `${props.maxPanelHeight}px`;
-  }
-  if (openUp) {
-    style.bottom = `${window.innerHeight - rect.top + 2}px`;
+    style.overflowY = "auto";
   } else {
-    style.top = `${rect.bottom + 2}px`;
+    style.maxHeight = "none";
+    style.overflowY = "visible";
   }
   panelStyle.value = style;
+}
+
+/** 渲染完了再看实际高度：下方放不下就整体挪到触发器上方 */
+function adjustDirection() {
+  const trigger = triggerRef.value;
+  const panel = panelRef.value;
+  if (!trigger || !panel) return;
+  const triggerRect = trigger.getBoundingClientRect();
+  const panelRect = panel.getBoundingClientRect();
+  const overflowsBottom = panelRect.bottom > window.innerHeight - 8;
+  if (!overflowsBottom) return;
+
+  const aboveTop = triggerRect.top - panelRect.height - 2;
+  const top = aboveTop > 8 ? aboveTop : window.innerHeight - panelRect.height - 8;
+  panelStyle.value = {
+    ...panelStyle.value,
+    top: `${Math.round(Math.max(8, top) + window.scrollY)}px`,
+  };
 }
 
 function openPanel() {
@@ -137,8 +152,8 @@ function openPanel() {
   );
   nextTick(() => {
     updatePanelPosition();
+    adjustDirection();
     document.addEventListener("mousedown", onDocMouseDown, true);
-    window.addEventListener("scroll", close, true);
     window.addEventListener("resize", updatePanelPosition);
   });
 }
@@ -146,7 +161,6 @@ function openPanel() {
 function close() {
   open.value = false;
   document.removeEventListener("mousedown", onDocMouseDown, true);
-  window.removeEventListener("scroll", close, true);
   window.removeEventListener("resize", updatePanelPosition);
 }
 
@@ -224,7 +238,6 @@ watch(
 
 onBeforeUnmount(() => {
   document.removeEventListener("mousedown", onDocMouseDown, true);
-  window.removeEventListener("scroll", close, true);
   window.removeEventListener("resize", updatePanelPosition);
 });
 </script>
@@ -357,19 +370,19 @@ onBeforeUnmount(() => {
 
 /* 尺寸与 McPixelInput 一致 */
 
-.mc-pixel-select-size-small {
+.mc-pixel-select-trigger.mc-pixel-select-size-small {
   height: var(--mc-small-height);
   font-size: var(--mc-small-font-size);
   min-width: var(--mc-small-width);
 }
 
-.mc-pixel-select-size-medium {
+.mc-pixel-select-trigger.mc-pixel-select-size-medium {
   height: var(--mc-medium-height);
   font-size: var(--mc-medium-font-size);
   min-width: var(--mc-medium-width);
 }
 
-.mc-pixel-select-size-large {
+.mc-pixel-select-trigger.mc-pixel-select-size-large {
   height: var(--mc-large-height);
   font-size: var(--mc-large-font-size);
   min-width: var(--mc-large-width);
