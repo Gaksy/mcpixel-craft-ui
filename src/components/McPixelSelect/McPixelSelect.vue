@@ -116,12 +116,15 @@ function updatePanelPosition() {
     zIndex: "9999",
     minWidth: "120px",
   };
+  // 只有显式传了 maxPanelHeight 才限制高度；否则让面板自然展开
+  // （之前按可视空间自动截断，选项稍多就会变成"只能看到一条、要滚动"）
+  if (props.maxPanelHeight > 0) {
+    style.maxHeight = `${props.maxPanelHeight}px`;
+  }
   if (openUp) {
     style.bottom = `${window.innerHeight - rect.top + 2}px`;
-    style.maxHeight = `${Math.min(spaceAbove, props.maxPanelHeight > 0 ? props.maxPanelHeight : spaceAbove)}px`;
   } else {
     style.top = `${rect.bottom + 2}px`;
-    style.maxHeight = `${Math.min(spaceBelow, props.maxPanelHeight > 0 ? props.maxPanelHeight : spaceBelow)}px`;
   }
   panelStyle.value = style;
 }
