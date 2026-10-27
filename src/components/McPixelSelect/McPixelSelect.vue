@@ -52,7 +52,7 @@ const props = withDefaults(defineProps<Props>(), {
   placeholder: "",
   id: "",
   name: "",
-  maxPanelHeight: 220,
+  maxPanelHeight: 0,
 });
 
 const emit = defineEmits<{
@@ -64,6 +64,16 @@ const open = ref(false);
 const activeIndex = ref(-1);
 const triggerRef = ref<HTMLButtonElement | null>(null);
 const rootRef = ref<HTMLElement | null>(null);
+const panelRef = ref<HTMLElement | null>(null);
+
+/**
+ * 面板用 Teleport 挂到 body 上、按触发器的位置做 fixed 定位。
+ *
+ * 为什么：如果直接放在组件内部用 absolute，任何祖先只要有 overflow:hidden/auto
+ * （卡片、滚动容器很常见）都会把面板裁掉 —— 表现就是「下拉框高度受限、要滚动
+ * 才能看到其余选项」。挂到 body 后不再受祖先裁剪，同时按可视空间决定向上/向下弹。
+ */
+const panelStyle = ref<Record<string, string>>({});
 
 /** 统一成 { value, label } */
 const normalized = computed<SelectOption[]>(() =>
@@ -86,24 +96,63 @@ function toggle() {
   open.value ? close() : openPanel();
 }
 
+function updatePanelPosition() {
+  const trigger = triggerRef.value;
+  if (!trigger) return;
+  const rect = trigger.getBoundingClientRect();
+  // 粗略估高：选项行高约 29px + 边框，用来判断放下面还是翻到上面
+  const wanted = Math.min(
+    normalized.value.length * 29 + 8,
+    props.maxPanelHeight > 0 ? props.maxPanelHeight : Number.MAX_SAFE_INTEGER,
+  );
+  const spaceBelow = window.innerHeight - rect.bottom - 8;
+  const spaceAbove = rect.top - 8;
+  const openUp = wanted > spaceBelow && spaceAbove > spaceBelow;
+
+  const style: Record<string, string> = {
+    position: "fixed",
+    left: `${rect.left}px`,
+    width: `${rect.width}px`,
+    zIndex: "9999",
+    minWidth: "120px",
+  };
+  if (openUp) {
+    style.bottom = `${window.innerHeight - rect.top + 2}px`;
+    style.maxHeight = `${Math.min(spaceAbove, props.maxPanelHeight > 0 ? props.maxPanelHeight : spaceAbove)}px`;
+  } else {
+    style.top = `${rect.bottom + 2}px`;
+    style.maxHeight = `${Math.min(spaceBelow, props.maxPanelHeight > 0 ? props.maxPanelHeight : spaceBelow)}px`;
+  }
+  panelStyle.value = style;
+}
+
 function openPanel() {
   open.value = true;
   activeIndex.value = Math.max(
     0,
     normalized.value.findIndex((opt) => opt.value === props.modelValue),
   );
-  nextTick(() => document.addEventListener("mousedown", onDocMouseDown, true));
+  nextTick(() => {
+    updatePanelPosition();
+    document.addEventListener("mousedown", onDocMouseDown, true);
+    window.addEventListener("scroll", close, true);
+    window.addEventListener("resize", updatePanelPosition);
+  });
 }
 
 function close() {
   open.value = false;
   document.removeEventListener("mousedown", onDocMouseDown, true);
+  window.removeEventListener("scroll", close, true);
+  window.removeEventListener("resize", updatePanelPosition);
 }
 
 function onDocMouseDown(event: MouseEvent) {
-  if (rootRef.value && !rootRef.value.contains(event.target as Node)) {
-    close();
+  const target = event.target as Node;
+  if (rootRef.value?.contains(target) || panelRef.value?.contains(target)) {
+    return;
   }
+  close();
 }
 
 function pick(opt: SelectOption) {
@@ -170,7 +219,11 @@ watch(
   () => close(),
 );
 
-onBeforeUnmount(() => document.removeEventListener("mousedown", onDocMouseDown, true));
+onBeforeUnmount(() => {
+  document.removeEventListener("mousedown", onDocMouseDown, true);
+  window.removeEventListener("scroll", close, true);
+  window.removeEventListener("resize", updatePanelPosition);
+});
 </script>
 
 <template>
@@ -211,16 +264,19 @@ onBeforeUnmount(() => document.removeEventListener("mousedown", onDocMouseDown, 
       <span class="mc-pixel-select-caret" aria-hidden="true">▾</span>
     </button>
 
-    <ul
-      v-if="open"
-      class="mc-pixel-select-panel"
-      :class="[
-        `mc-pixel-select-appearance-${appearance}`,
-        `mc-pixel-select-size-${size}`,
-      ]"
-      :style="{ maxHeight: `${maxPanelHeight}px` }"
-      role="listbox"
-    >
+    <!-- 面板挂到 body：不受卡片/滚动容器的 overflow 裁剪，高度按可视空间自适应 -->
+    <Teleport to="body">
+      <ul
+        v-if="open"
+        ref="panelRef"
+        class="mc-pixel-select-panel"
+        :class="[
+          `mc-pixel-select-appearance-${appearance}`,
+          `mc-pixel-select-size-${size}`,
+        ]"
+        :style="panelStyle"
+        role="listbox"
+      >
       <li
         v-for="(opt, index) in normalized"
         :key="opt.value"
@@ -238,8 +294,9 @@ onBeforeUnmount(() => document.removeEventListener("mousedown", onDocMouseDown, 
         <span class="mc-pixel-select-check" aria-hidden="true">✓</span>
         <span>{{ opt.label }}</span>
       </li>
-      <li v-if="!normalized.length" class="mc-pixel-select-empty">—</li>
-    </ul>
+        <li v-if="!normalized.length" class="mc-pixel-select-empty">—</li>
+      </ul>
+    </Teleport>
   </div>
 </template>
 
