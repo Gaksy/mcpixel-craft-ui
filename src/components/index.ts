@@ -3,6 +3,7 @@
 import type { App, Component } from "vue";
 import McPixelButton from "./McPixelButton/McPixelButton.vue";
 import McPixelInput from "./McPixelInput/McPixelInput.vue";
+import McPixelSelect from "./McPixelSelect/McPixelSelect.vue";
 import McPixelInnerTipsInput from "./McPixelInnerTipsInput/McPixelInnerTipsInput.vue";
 import McPixelCard from "./McPixelCard/McPixelCard.vue";
 import McPixelTable from "./McPixelTable/McPixelTable.vue";
@@ -13,6 +14,7 @@ import McPixelPagination from "./McPixelPagination/McPixelPagination.vue";
 const components: Component[] = [
   McPixelButton,
   McPixelInput,
+  McPixelSelect,
   McPixelInnerTipsInput,
   McPixelCard,
   McPixelTable,
@@ -30,6 +32,7 @@ const install = (app: App) => {
 export {
   McPixelButton,
   McPixelInput,
+  McPixelSelect,
   McPixelInnerTipsInput,
   McPixelCard,
   McPixelTable,

@@ -2,6 +2,7 @@ import './assets/theme'
 import type { App, Component } from "vue";
 import McPixelButton from "./components/McPixelButton/McPixelButton.vue";
 import McPixelInput from "./components/McPixelInput/McPixelInput.vue";
+import McPixelSelect from "./components/McPixelSelect/McPixelSelect.vue";
 import McPixelInnerTipsInput from "./components/McPixelInnerTipsInput/McPixelInnerTipsInput.vue";
 import McPixelCard from "./components/McPixelCard/McPixelCard.vue";
 import McPixelTable from "./components/McPixelTable/McPixelTable.vue";
@@ -16,6 +17,7 @@ import McPixelLoadingOverlay from "./components/McPixelLoadingOverlay/McPixelLoa
 const components: Component[] = [
     McPixelButton,
     McPixelInput,
+    McPixelSelect,
     McPixelInnerTipsInput,
     McPixelCard,
     McPixelTable,
@@ -37,6 +39,7 @@ const install = (app: App) => {
 export {
     McPixelButton,
     McPixelInput,
+    McPixelSelect,
     McPixelInnerTipsInput,
     McPixelCard,
     McPixelTable,

@@ -1,5 +1,6 @@
 import McPixelButton from "./components/McPixelButton";
 import McPixelInput from "./components/McPixelInput";
+import McPixelSelect from "./components/McPixelSelect";
 import McPixelInnerTipsInput from "./components/McPixelInnerTipsInput";
 import McPixelCard from "./components/McPixelCard";
 import McPixelTable from "./components/McPixelTable";
@@ -14,6 +15,7 @@ import McPixelLoadingOverlay from "./components/McPixelLoadingOverlay";
 export {
     McPixelButton,
     McPixelInput,
+McPixelSelect,
     McPixelInnerTipsInput,
     McPixelCard,
     McPixelTable,
@@ -28,6 +30,7 @@ export {
 
 export type { McPixelButtonProps } from "./components/McPixelButton";
 export type { McPixelInputProps } from "./components/McPixelInput";
+export type { McPixelSelectProps, McPixelSelectOption } from "./components/McPixelSelect";
 export type { McPixelInnerTipsInputProps } from "./components/McPixelInnerTipsInput";
 export type { McPixelCardProps } from "./components/McPixelCard";
 export type { McPixelTableProps, TableColumn } from "./components/McPixelTable";
